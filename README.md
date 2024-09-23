@@ -1,4 +1,4 @@
 # Centralized-Traffic-Inspection-with-AWSNetworkFirewall
 
 
-![Centralized-Traffic-Inspection](https://github.com/user-attachments/assets/d21d6824-2d20-4d63-89d3-23efbe1891eb)
+![Centralized-Network-Inspection-with-AWSNetworkFirewall](https://github.com/user-attachments/assets/0deeaff2-21a7-4648-a866-e80441721919)
