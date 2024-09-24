@@ -1,0 +1,28 @@
+# Terraform State Files
+*.tfstate
+*.tfstate.*
+
+# Crash Logs
+crash.log
+
+# Terraform Variable Files
+#Uncomment this for dev, uat and prod
+#*.tfvars
+#*.tfvars.json
+
+# Override Files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform Plan Files
+*.tfplan
+
+# .terraform directory
+**/.terraform/*
+.terraform.lock.hcl
+
+# Local backend configuration
+terraform.tfstate.backup
+.terraformrc
