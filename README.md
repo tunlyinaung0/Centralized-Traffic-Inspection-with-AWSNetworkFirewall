@@ -4,6 +4,24 @@
 ![Centralized-Network-Inspection-with-AWSNetworkFirewall](https://github.com/user-attachments/assets/fc8075f0-4218-462e-8586-07d4f2222ca2)
 
 
+## Key Components 
+- 2x EC2 instances
+- If you don't have IAM instance profile, create one with this AWS Managed Policy : AmazonSSMManagedInstanceCore . And attach the role to Ec2 instances (Mine is SSM-for-ec2)
+- VPC-A , 1x Private Subnet in us-east-1a
+- VPC-B , 1x Private Subnet in us-east-1b
+- Security-VPC, IGW, 2x NAT Gateway, 2x Firewall Subnets in different AZs, 2x TGW subnets in different AZs, 2x public subnets in different AZs
+- 2x Firewall RTB, 2x TGW Subnet RTB, 2x Public Subnet RTB, RTB for Private Subnet-A , RTB for Private Subnet-B
+- AWS Network Firewall, Firewall Policy, Firewall Rule Group
+- 1x Transit Gateway , 3x Transit Gateway Attachment , 2x Transit Gateway Route Tables
+
+
+## Goals
+- Direct all the incoming traffic to AWS Network Firewall to be inspected. (For North-South Traffic)
+- Direct all the traffic between Server-A and Server-B to go through AWS Network Firewall to be inspected. (For East-West Traffic)
+
+## Verify the traffic flow using AWS Network Firewall Rule Group
+- Add a network firewall rule to block traffic between Server-A and B to verify that the traffic is actually going through Network Firewall. (For East-West Traffic)
+- EC2 instances must have internet access. (For North-South Traffic)
 
 
 #### If you are wondering how I describe Gateway Load Blancer Endpoint ID , check below. Let's explore step by step.
