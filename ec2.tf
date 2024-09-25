@@ -5,6 +5,7 @@ resource "aws_instance" "server_a" {
     iam_instance_profile = "SSM-for-ec2"
     subnet_id = aws_subnet.private_subnet_a.id
     vpc_security_group_ids = [aws_default_security_group.vpc_a_sg.id]
+    private_ip = "10.0.0.167"
 
     tags = {
         Name = "Server-A"
@@ -19,6 +20,7 @@ resource "aws_instance" "server_b" {
     iam_instance_profile = "SSM-for-ec2"
     subnet_id = aws_subnet.private_subnet_b.id
     vpc_security_group_ids = [aws_default_security_group.vpc_b_sg.id]
+    private_ip = "10.100.0.167"
 
     tags = {
         Name = "Server-B"
