@@ -130,6 +130,20 @@ resource "aws_route_table" "public_rtb_a" {
         gateway_id = aws_internet_gateway.security_igw.id
     }
 
+    route {
+        cidr_block = var.private_subnet_a_cidr
+        vpc_endpoint_id = (aws_networkfirewall_firewall.network_firewall.firewall_status[0].sync_states[*].attachment[0].endpoint_id)[0]
+
+    }
+
+    route {
+        cidr_block = var.private_subnet_b_cidr
+        vpc_endpoint_id = (aws_networkfirewall_firewall.network_firewall.firewall_status[0].sync_states[*].attachment[0].endpoint_id)[0]
+
+    }
+
+    
+
     tags = {
         Name = "public_rtb_a"
     }
@@ -142,6 +156,18 @@ resource "aws_route_table" "public_rtb_b" {
     route {
         cidr_block = "0.0.0.0/0"
         gateway_id = aws_internet_gateway.security_igw.id
+    }
+
+    route {
+        cidr_block = var.private_subnet_a_cidr
+        vpc_endpoint_id = (aws_networkfirewall_firewall.network_firewall.firewall_status[0].sync_states[*].attachment[0].endpoint_id)[1]
+
+    }
+
+    route {
+        cidr_block = var.private_subnet_b_cidr
+        vpc_endpoint_id = (aws_networkfirewall_firewall.network_firewall.firewall_status[0].sync_states[*].attachment[0].endpoint_id)[1]
+
     }
 
     tags = {
@@ -158,6 +184,16 @@ resource "aws_route_table" "firewall_rtb_a" {
         nat_gateway_id =  aws_nat_gateway.nat_a.id
     }
 
+    route {
+        cidr_block = var.vpc_a_cidr
+        transit_gateway_id = aws_ec2_transit_gateway.tgw.id
+    }
+
+    route {
+        cidr_block = var.vpc_b_cidr
+        transit_gateway_id = aws_ec2_transit_gateway.tgw.id
+    }
+
     tags = {
         Name = "firewall_rtb_a"
     }
@@ -172,6 +208,16 @@ resource "aws_route_table" "firewall_rtb_b" {
         nat_gateway_id = aws_nat_gateway.nat_b.id
     }
 
+    route {
+        cidr_block = var.vpc_a_cidr
+        transit_gateway_id = aws_ec2_transit_gateway.tgw.id
+    }
+
+    route {
+        cidr_block = var.vpc_b_cidr
+        transit_gateway_id = aws_ec2_transit_gateway.tgw.id
+    }
+
     tags = {
         Name = "firewall_rtb_b"
     }
@@ -181,6 +227,10 @@ resource "aws_route_table" "firewall_rtb_b" {
 resource "aws_route_table" "tgw_rtb_a" {
     vpc_id = aws_vpc.security_vpc.id
 
+    route {
+        cidr_block = "0.0.0.0/0"
+        vpc_endpoint_id = (aws_networkfirewall_firewall.network_firewall.firewall_status[0].sync_states[*].attachment[0].endpoint_id)[0]
+    }
 
     tags = {
         Name = "tgw_rtb_a"
@@ -191,6 +241,10 @@ resource "aws_route_table" "tgw_rtb_a" {
 resource "aws_route_table" "tgw_rtb_b" {
     vpc_id = aws_vpc.security_vpc.id
 
+    route {
+        cidr_block = "0.0.0.0/0"
+        vpc_endpoint_id = (aws_networkfirewall_firewall.network_firewall.firewall_status[0].sync_states[*].attachment[0].endpoint_id)[1]
+    }
 
     tags = {
         Name = "tgw_rtb_b"

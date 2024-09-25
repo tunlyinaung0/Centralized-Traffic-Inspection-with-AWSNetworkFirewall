@@ -24,6 +24,11 @@ resource "aws_subnet" "private_subnet_b" {
 resource "aws_route_table" "private_rtb_b" {
     vpc_id = aws_vpc.vpc_b.id
 
+    route {
+        cidr_block = "0.0.0.0/0"
+        transit_gateway_id = aws_ec2_transit_gateway.tgw.id
+    }
+
     tags = {
         Name = "private-rtb-b"
     }
