@@ -86,7 +86,7 @@ resource "aws_eip" "eip_a" {
     domain   = "vpc"
 
     tags = {
-        Name = "eip_b"
+        Name = "eip_a"
     }
 }
 
